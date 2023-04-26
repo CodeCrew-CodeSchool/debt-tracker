@@ -11,14 +11,14 @@ const style = {
   border: '2px solid red'
 }
 function App() {
-  const [debtTotal, setDebtTotal] = useState[0];
+  const [debtTotal, setDebtTotal] = useState(0);
 
   return (
     <div className="App">
         <Container>
           {/*debt input -> input and submit button
           list - show debt items -> name $amount*/}
-          <DebtInput style={style} total={debtTotal} setTotal={setDebtTotal}/>
+          <DebtInput isDebt={true} nameLabel={'Lender'} amountLabel={'Debt Amount in U$D'} style={style} total={debtTotal} setTotal={setDebtTotal}/>
           {/* counter - sum up debt -> total field */ }
           <DebtTotal style={style} total={debtTotal}/>
           {/*payment tracker -> input and submit button */}

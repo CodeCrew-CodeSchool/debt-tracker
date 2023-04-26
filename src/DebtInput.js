@@ -12,37 +12,50 @@ export default function (props) {
     //debts - array of debt objects {debtor: 'name', amount: 00}
     const [debts, setDebts] = useState([]);
     //text fields
-    const [debtorText, setDebtorText] = useState('');
+    const [lenderText, setLenderText] = useState('');
     const [amountText, setAmountText] = useState(0);
+    //state variables to track whether a debt or payment was submitted
+    const [isDebt, setIsDebt] = useState(props.isDebt)
     
-    const sdtFunc = (event) => {
-        setDebtorText(event.target.value);
+    const sltFunc = (event) => {
+        setLenderText(event.target.value); 
     }
     const satFunc = (event) => {
-        setAmountText(event.target.value);
+        setAmountText(event.target.value);     
     }
     const submitDebts = () => {
         if (amountText > 0) {
             let newDebts = debts;
-            newDebts.push({'debtor': debtorText, 'amount': amountText});
+            let dollars = parseInt(amountText)
+            if (!isDebt) {
+                dollars *= -1
+            }
+            console.log(dollars)
+
+            newDebts.push({'lender': lenderText, 'amount': dollars});
+            console.log(newDebts);
             setDebts(newDebts);
-            setDebtorText('');
+            setLenderText('');
             setAmountText(0)
+            
+            props.setTotal(newDebts.map(x => parseInt(x.amount)).reduce((acc, cur) => acc + cur));
         }
-        console.log(debts)
+        //console.log(debts)
     }
 
     return (
         <div style={props.style}>
             <Form>
-                <Form.Control onInput={sdtFunc} value={debtorText}/>
-                <Form.Control onInput={satFunc} value={amountText}/>
+                <Form.Label>{props.nameLabel}</Form.Label>
+                <Form.Control onInput={sltFunc} value={lenderText}/>
+                <Form.Label>{props.amountLabel}</Form.Label>
+                <Form.Control type='number' onInput={satFunc} value={amountText}/>
                 <Button variant="info" onClick={submitDebts}>Submit</Button>
             </Form>
             <Table>
                 <thead>
                     <tr>
-                    <th>Debtor</th>
+                    <th>{props.nameLabel}</th>
                     <th>Debt Amount</th>
                     </tr>
                 </thead>
@@ -50,7 +63,7 @@ export default function (props) {
                     {debts.map((value, index) => {
                         return (
                             <tr key={index}>
-                                <td>{value.debtor}</td>
+                                <td>{value.lender}</td>
                                 <td>{value.amount}</td>
                             </tr>)
                     })}
