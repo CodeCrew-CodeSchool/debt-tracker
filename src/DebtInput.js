@@ -26,18 +26,10 @@ export default function (props) {
             let newDebts = debts;
             newDebts.push({'debtor': debtorText, 'amount': amountText});
             setDebts(newDebts);
+            setDebtorText('');
+            setAmountText(0)
         }
-    }
-
-    const renderDebts = () => {
-        console.log('test')
-       return debts.map((value, index) => {
-            return (<tr key={index}>
-                <td>{value.debtor}</td>
-                <td>{value.amount}</td>
-            </tr>)
-        });
-        
+        console.log(debts)
     }
 
     return (
@@ -55,7 +47,13 @@ export default function (props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderDebts}
+                    {debts.map((value, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>{value.debtor}</td>
+                                <td>{value.amount}</td>
+                            </tr>)
+                    })}
                 </tbody>
                 <tfoot></tfoot>
             </Table>

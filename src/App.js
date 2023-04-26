@@ -5,21 +5,24 @@ import DebtTotal from './DebtTotal';
 import Payments from './Payments';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 
 const style = {
   border: '2px solid red'
 }
 function App() {
+  const [debtTotal, setDebtTotal] = useState[0];
+
   return (
     <div className="App">
         <Container>
           {/*debt input -> input and submit button
           list - show debt items -> name $amount*/}
-          <DebtInput style={style} />
+          <DebtInput style={style} total={debtTotal} setTotal={setDebtTotal}/>
           {/* counter - sum up debt -> total field */ }
-          <DebtTotal style={style} />
+          <DebtTotal style={style} total={debtTotal}/>
           {/*payment tracker -> input and submit button */}
-          <Payments style={style}/>
+          <Payments style={style} total={debtTotal} setTotal={setDebtTotal}/>
         </Container>
     </div>
   );
