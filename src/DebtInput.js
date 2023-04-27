@@ -25,20 +25,29 @@ export default function (props) {
     }
     const submitDebts = () => {
         if (amountText > 0) {
+            let tableArr = debts;
             let newDebts = debts;
-            let dollars = parseInt(amountText)
+            let dollars = parseInt(amountText);
+            
             if (!isDebt) {
-                dollars *= -1
+                dollars *= -1;
             }
             console.log(dollars)
 
-            newDebts.push({'lender': lenderText, 'amount': dollars});
-            console.log(newDebts);
+            tableArr.push({'lender': lenderText, 'amount': dollars});
+            // newDebts.push({'lender': lenderText, 'amount': amountText});
+
+            let formTotal = newDebts.map(x => parseInt(x.amount)).reduce((acc, cur) => acc + cur);
+            if (!isDebt) {
+                formTotal *= -1
+               //
+            }
+            console.log(props.debtTotal + ' ' + formTotal);
             setDebts(newDebts);
             setLenderText('');
-            setAmountText(0)
+            setAmountText(0);
             
-            props.setTotal(newDebts.map(x => parseInt(x.amount)).reduce((acc, cur) => acc + cur));
+            props.setDebtTotal(formTotal);
         }
         //console.log(debts)
     }
