@@ -38,16 +38,19 @@ export default function (props) {
             // newDebts.push({'lender': lenderText, 'amount': amountText});
 
             let formTotal = newDebts.map(x => parseInt(x.amount)).reduce((acc, cur) => acc + cur);
-            if (!isDebt) {
-                formTotal *= -1
-               //
-            }
+           
             console.log(props.debtTotal + ' ' + formTotal);
             setDebts(newDebts);
             setLenderText('');
             setAmountText(0);
             
-            props.setDebtTotal(formTotal);
+            if (!isDebt) {
+                formTotal *= -1
+               props.setPaidTotal(formTotal)
+            } else {
+                props.setDebtTotal(formTotal);
+            }
+            
         }
         //console.log(debts)
     }

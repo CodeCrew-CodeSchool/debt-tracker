@@ -8,7 +8,7 @@ export default function (props) {
 
     return (
         <div style={props.style}>
-        <MoneyForm isDebt={false} nameLabel={'Paid To'} amountLabel={'Amount in U$D'} setTotal={props.setTotal} />
+        <MoneyForm isDebt={false} nameLabel={'Paid To'} amountLabel={'Amount in U$D'} setPaidTotal={props.setTotal} />
         </div>
     )
 }
